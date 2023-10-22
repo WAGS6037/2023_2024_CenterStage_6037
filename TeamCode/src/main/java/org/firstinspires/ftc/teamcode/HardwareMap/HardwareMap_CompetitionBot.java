@@ -2,10 +2,11 @@ package org.firstinspires.ftc.teamcode.HardwareMap;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
+//import com.qualcomm.robotcore.hardware.CRServo;
 //import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -40,11 +41,10 @@ public class HardwareMap_CompetitionBot
     //public DcMotor duckMotor = null;
 
     //The slide system is a DC Motor
-    public DcMotor slideSystem = null;
+    public DcMotor arm = null;
 
-    //The claws are both servos
-    public Servo leftClaw = null; //was CRServo but it was changed to 180 degrees
-    public Servo rightClaw = null; //was CRServo but it was changed to 180 degrees
+    //The wheels for the paper airplane shooter are both servos
+    public DcMotor shooter = null; //was CRServo but it was changed to 180 degrees
 
     public BNO055IMU imu;
 
@@ -76,12 +76,11 @@ public class HardwareMap_CompetitionBot
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 
-        // slide system
-        slideSystem = hwMap.get(DcMotor.class, "slideSystem");
+        // arm
+        arm = hwMap.get(DcMotor.class, "arm");
 
-        // Intake motors
-        leftClaw = hwMap.get(Servo.class, "leftClaw");
-        rightClaw = hwMap.get(Servo.class, "rightClaw");
+        // Wheels for paper airplane shooter
+        shooter = hwMap.get(DcMotor.class, "shooter");
 
         //  OTHER ITEMS
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -95,8 +94,8 @@ public class HardwareMap_CompetitionBot
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // slide system
-        slideSystem.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // arm
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         ////// SETTING DIRECTIONS OF THE MOTOR
         // Wheels
@@ -105,12 +104,12 @@ public class HardwareMap_CompetitionBot
         leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
-        // slide system
-        slideSystem.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        // arm
+        arm.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
-        // Claw
-        //leftClaw.setDirection(Servo.Direction.REVERSE); // Set to REVERSE if using AndyMark servos
-        //rightClaw.setDirection(Servo.Direction.FORWARD);// Set to FORWARD if using AndyMark servos
+        // Wheels for paper airplane shooter
+        shooter.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark servos
+        //rightWheel.setDirection(CRServo.Direction.FORWARD);// Set to FORWARD if using AndyMark servos
 
         // Set all motors and servos to power 0
 
@@ -120,12 +119,12 @@ public class HardwareMap_CompetitionBot
         leftBack.setPower(0);
         rightBack.setPower(0);
 
-        // slide system
-        slideSystem.setPower(0);
+        // arm
+        arm.setPower(0);
 
-        // Claw
-        //leftClaw.setPower(0); --> would have needed if the servo was continuous
-        //rightClaw.setPower(0); --> would have needed if the servo was continuous
+        // Wheels for paper airplane
+        shooter.setPower(0); // --> need if the servo is continuous (we are using motor now)
+        //rightWheel.setPower(0); // --> need if the servo is continuous
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -136,9 +135,12 @@ public class HardwareMap_CompetitionBot
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        // Slide system
-        slideSystem.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slideSystem.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // arm
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // shooter
+        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
