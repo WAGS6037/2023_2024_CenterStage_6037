@@ -41,7 +41,8 @@ public class HardwareMap_CompetitionBot
     //public DcMotor duckMotor = null;
 
     //The slide system is a DC Motor
-    public DcMotor arm = null;
+    public DcMotor arm1 = null;
+    public DcMotor arm2 = null;
 
     //The wheels for the paper airplane shooter are both servos
     public DcMotor shooter = null; //was CRServo but it was changed to 180 degrees
@@ -77,7 +78,8 @@ public class HardwareMap_CompetitionBot
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 
         // arm
-        arm = hwMap.get(DcMotor.class, "arm");
+        arm1 = hwMap.get(DcMotor.class, "arm");
+        arm2 = hwMap.get(DcMotor.class, "arm");
 
         // Wheels for paper airplane shooter
         shooter = hwMap.get(DcMotor.class, "shooter");
@@ -95,7 +97,8 @@ public class HardwareMap_CompetitionBot
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // arm
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         ////// SETTING DIRECTIONS OF THE MOTOR
         // Wheels
@@ -105,7 +108,8 @@ public class HardwareMap_CompetitionBot
         rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // arm
-        arm.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        arm1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        arm2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // Wheels for paper airplane shooter
         shooter.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark servos
@@ -120,7 +124,8 @@ public class HardwareMap_CompetitionBot
         rightBack.setPower(0);
 
         // arm
-        arm.setPower(0);
+        arm1.setPower(0);
+        arm2.setPower(0);
 
         // Wheels for paper airplane
         shooter.setPower(0); // --> need if the servo is continuous (we are using motor now)
@@ -136,8 +141,10 @@ public class HardwareMap_CompetitionBot
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // arm
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // shooter
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

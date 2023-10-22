@@ -123,19 +123,23 @@ public class CompetitionBot extends OpMode {
 
         //Arm --> lift up
         if (isButtonRB2) {
-            robot.arm.setPower(1);
+            robot.arm1.setPower(1);
+            robot.arm2.setPower(-1);
             telemetry.addData("Button","RB2");
         }else {
-            robot.arm.setPower(0);
+            robot.arm1.setPower(0);
+            robot.arm2.setPower(0);
             telemetry.addData("Button", "None");
         }
 
         //Arm --> go down
         if (isButtonLB2) {
-            robot.arm.setPower(-1);
+            robot.arm1.setPower(-1);
+            robot.arm2.setPower(1);
             telemetry.addData("Button","LB2");
         }else {
-            robot.arm.setPower(0);
+            robot.arm1.setPower(0);
+            robot.arm2.setPower(0);
             telemetry.addData("Button", "None");
         }
 
@@ -167,16 +171,21 @@ public class CompetitionBot extends OpMode {
     public void liftUp (double liftTime, double liftSpeed) {
         runtimeLift.reset();
         while (runtimeLift.seconds() < liftTime) {
-            robot.arm.setPower(liftSpeed);
+            robot.arm1.setPower(liftSpeed);
+            robot.arm2.setPower(liftSpeed);
         }
-        robot.arm.setPower(0);
+        robot.arm1.setPower(0);
+        robot.arm2.setPower(0);
     }
 
     public void liftUpPosition(int position, double liftSpeed) {
 
-        robot.arm.setTargetPosition(position);
-        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.arm.setPower(Math.abs(liftSpeed));
+        robot.arm1.setTargetPosition(position);
+        robot.arm1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.arm1.setPower(Math.abs(liftSpeed));
+        robot.arm2.setTargetPosition(position);
+        robot.arm2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.arm2.setPower(Math.abs(liftSpeed));
 
     }
 
