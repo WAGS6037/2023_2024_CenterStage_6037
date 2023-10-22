@@ -83,6 +83,8 @@ public class B1_Park_WheelsOnly_A6 extends LinearOpMode {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
+            //move forward 4 squares
+            encoderDrive(1,15,15, 15, 15, 30);
             state = 2;
         }
         //stopping robot
