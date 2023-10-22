@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.HardwareMap;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -23,18 +24,17 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
 
-public class HardwareMap_Claw
+public class HardwareMap_Shooter
 {
     /* Public OpMode members. */
-    public Servo leftClaw  = null;
-    public Servo rightClaw  = null;
+    public DcMotor shooter  = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareMap_Claw(){
+    public HardwareMap_Shooter(){
 
     }
 
@@ -44,11 +44,9 @@ public class HardwareMap_Claw
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        leftClaw = hwMap.get(Servo.class, "claw");
-        rightClaw = hwMap.get(Servo.class, "claw");
+        shooter = hwMap.get(DcMotor.class, "shooter");
         //claw.setMode(Servo.RunMode.STOP_AND_RESET_ENCODER);
-        leftClaw.setDirection(Servo.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        rightClaw.setDirection(Servo.Direction.REVERSE);
+        shooter.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // Set all motors to zero power
         //claw.setPower(0);
