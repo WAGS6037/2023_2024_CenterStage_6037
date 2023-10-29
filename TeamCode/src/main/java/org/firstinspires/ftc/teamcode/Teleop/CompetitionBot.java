@@ -85,8 +85,8 @@ public class CompetitionBot extends OpMode {
         //end of gamepad driving 1
         boolean isButtonB2 = gamepad2.b; //moving shooter wheels (they move simultaneously in opposite directions)
         boolean isButtonA2 = gamepad2.a; //to move arm
-        boolean isButtonX2 = gamepad2.x; //dowwn lift
-        boolean isButtonY2 = gamepad2.y;
+        boolean isButtonX2 = gamepad2.x; //down lift
+        boolean isButtonY2 = gamepad2.y; //intake sucking in
 
         boolean isButtonLB2 = gamepad2.left_bumper;
         boolean isButtonRB2 = gamepad2.right_bumper;
@@ -165,6 +165,16 @@ public class CompetitionBot extends OpMode {
             //robot.leftWheel.setPower(0);
             telemetry.addData("Button", "None");
         }
+
+        //Intake --> sucking up
+        if (isButtonY2) {
+            robot.Intake.setPower(1);
+            telemetry.addData("Button","Y2");
+        }else {
+            robot.Intake.setPower(0);
+            telemetry.addData("Button", "None");
+        }
+
     }
 
     //liftUp

@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.CRServo;
 //import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 //import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -47,6 +48,9 @@ public class HardwareMap_CompetitionBot
     //The wheels for the paper airplane shooter are both servos
     public DcMotor shooter = null; //was CRServo but it was changed to 180 degrees
 
+    //Intake
+    public CRServo Intake = null;
+
     public BNO055IMU imu;
 
     public final double THRESHOLD = 4;
@@ -78,11 +82,14 @@ public class HardwareMap_CompetitionBot
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 
         // arm
-        arm1 = hwMap.get(DcMotor.class, "arm");
-        arm2 = hwMap.get(DcMotor.class, "arm");
+        arm1 = hwMap.get(DcMotor.class, "arm1");
+        arm2 = hwMap.get(DcMotor.class, "arm2");
 
         // Wheels for paper airplane shooter
         shooter = hwMap.get(DcMotor.class, "shooter");
+
+        //Intake
+        Intake = hwMap.get(CRServo.class, "Intake");
 
         //  OTHER ITEMS
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -99,6 +106,9 @@ public class HardwareMap_CompetitionBot
         // arm
         arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Shooter
+        shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         ////// SETTING DIRECTIONS OF THE MOTOR
         // Wheels
@@ -131,6 +141,9 @@ public class HardwareMap_CompetitionBot
         shooter.setPower(0); // --> need if the servo is continuous (we are using motor now)
         //rightWheel.setPower(0); // --> need if the servo is continuous
 
+        //Intake
+        Intake.setPower(0);
+
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
 
@@ -142,9 +155,9 @@ public class HardwareMap_CompetitionBot
 
         // arm
         arm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // shooter
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

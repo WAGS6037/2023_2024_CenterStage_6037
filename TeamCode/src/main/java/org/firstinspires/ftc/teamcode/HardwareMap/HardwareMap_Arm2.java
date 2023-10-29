@@ -22,10 +22,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
 
-public class HardwareMap_Arm
+public class HardwareMap_Arm2
 {
     /* Public OpMode members. */
-    public DcMotor  arm1  = null;
+    //public DcMotor  arm1  = null;
     public DcMotor arm2 = null;
 
     /* local OpMode members. */
@@ -33,7 +33,7 @@ public class HardwareMap_Arm
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareMap_Arm(){
+    public HardwareMap_Arm2(){
 
     }
 
@@ -43,21 +43,21 @@ public class HardwareMap_Arm
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        arm1 = hwMap.get(DcMotor.class, "arm");
-        arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        //arm1 = hwMap.get(DcMotor.class, "arm1");
+        //arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //arm1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
-        arm2 = hwMap.get(DcMotor.class, "arm");
+        arm2 = hwMap.get(DcMotor.class, "arm2");
         arm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // Set all motors to zero power
-        arm1.setPower(0);
+        //arm1.setPower(0);
         arm2.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        arm1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //arm1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         arm2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
