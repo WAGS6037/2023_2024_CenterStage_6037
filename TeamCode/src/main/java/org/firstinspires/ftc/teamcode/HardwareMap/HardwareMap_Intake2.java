@@ -24,10 +24,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
 
-public class HardwareMap_Intake
+public class HardwareMap_Intake2
 {
     /* Public OpMode members. */
-    public CRServo Intake  = null;
+    //public Servo Intake1  = null;
+
+    public Servo Intake2  = null;
+
     //public DcMotor arm2 = null;
 
     /* local OpMode members. */
@@ -35,7 +38,7 @@ public class HardwareMap_Intake
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareMap_Intake(){
+    public HardwareMap_Intake2(){
 
     }
 
@@ -45,8 +48,11 @@ public class HardwareMap_Intake
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        Intake = hwMap.get(CRServo.class, "Intake");
-        Intake.setDirection(CRServo.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        //Intake1 = hwMap.get(Servo.class, "Intake1");
+        //Intake1.setDirection(Servo.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+
+        Intake2 = hwMap.get(Servo.class, "Intake2");
+        Intake2.setDirection(Servo.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
     }
 

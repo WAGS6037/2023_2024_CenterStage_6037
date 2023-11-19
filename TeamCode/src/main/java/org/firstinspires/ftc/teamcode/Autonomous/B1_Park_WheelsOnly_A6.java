@@ -83,17 +83,22 @@ public class B1_Park_WheelsOnly_A6 extends LinearOpMode {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            //move forward 4 squares
-            encoderDrive(1,15,15, 15, 15, 30);
+            strafeLeft(DRIVE_SPEED, 0.5);
             state = 2;
         }
+        if (state == 2){
+            telemetry.addData("State","2");
+            telemetry.update();
+            encoderDrive(1,-16,-16, -16, -16, 4.0);
+            state = 3;
+        }
         //stopping robot
-        if(state == 2){
-            telemetry.addData("State", "4");
+        if(state == 3){
+            telemetry.addData("State", "3");
             telemetry.update();
             stopMotors();
             //Move forward six feet.
-            state = 3;
+            state = 4;
         }
 
         //stop all motion
@@ -194,7 +199,7 @@ public class B1_Park_WheelsOnly_A6 extends LinearOpMode {
         robot.leftBack.setPower(-power);
         robot.rightBack.setPower(power);
     }
-    public void strafeLeft(double power, int distance) {
+    public void strafeLeft(double power, double distance) {
         Orientation angles;
         double error;
         double k = 3/360.0;
@@ -226,7 +231,7 @@ public class B1_Park_WheelsOnly_A6 extends LinearOpMode {
         stopMotors();
     }
 
-    public void strafeRight(double power, int distance) {
+    public void strafeRight(double power, double distance) {
         Orientation angles;
         double error;
         double k = 3 / 360.0;

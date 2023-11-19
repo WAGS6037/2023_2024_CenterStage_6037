@@ -49,7 +49,11 @@ public class HardwareMap_CompetitionBot
     public DcMotor shooter = null; //was CRServo but it was changed to 180 degrees
 
     //Intake
-    public CRServo Intake = null;
+    public Servo Intake1 = null;
+
+    public Servo Intake2 = null;
+
+    public DcMotor Pivot = null;
 
     public BNO055IMU imu;
 
@@ -89,7 +93,12 @@ public class HardwareMap_CompetitionBot
         shooter = hwMap.get(DcMotor.class, "shooter");
 
         //Intake
-        Intake = hwMap.get(CRServo.class, "Intake");
+        Intake1 = hwMap.get(Servo.class, "Intake1");
+
+        Intake2 = hwMap.get(Servo.class, "Intake2");
+
+        //Pivot
+        Pivot = hwMap.get(DcMotor.class, "Pivot");
 
         //  OTHER ITEMS
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -110,6 +119,9 @@ public class HardwareMap_CompetitionBot
         // Shooter
         shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // Pivot
+        Pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         ////// SETTING DIRECTIONS OF THE MOTOR
         // Wheels
         leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -125,6 +137,9 @@ public class HardwareMap_CompetitionBot
         shooter.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark servos
         //rightWheel.setDirection(CRServo.Direction.FORWARD);// Set to FORWARD if using AndyMark servos
 
+        //Pivot
+        Pivot.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark servos
+
         // Set all motors and servos to power 0
 
         // Wheels
@@ -137,12 +152,16 @@ public class HardwareMap_CompetitionBot
         arm1.setPower(0);
         arm2.setPower(0);
 
-        // Wheels for paper airplane
+        // Shooter
         shooter.setPower(0); // --> need if the servo is continuous (we are using motor now)
         //rightWheel.setPower(0); // --> need if the servo is continuous
 
-        //Intake
-        Intake.setPower(0);
+        // Intake
+        //Intake1.setPosition(0);
+        //Intake2.setPosition(0);
+
+        // Pivot
+        Pivot.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -155,12 +174,16 @@ public class HardwareMap_CompetitionBot
 
         // arm
         arm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // --> just added
         arm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // --> just added
 
         // shooter
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Pivot
+        Pivot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // --> just added
 
         //IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

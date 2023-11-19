@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Holonomic;
+import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_CompetitionBot;
 
 
 /**
@@ -39,12 +40,12 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Holonomic;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="R2 Park WheelsOnly F6", group="Blue")
+@Autonomous(name="B1_DropPixel", group="Blue")
 //@Disabled
-public class R2_Park_WheelsOnly_F6 extends LinearOpMode {
+public class B1_DropPixel extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareMap_Holonomic robot = new HardwareMap_Holonomic(); // Use a Pushbot's hardware
+    HardwareMap_CompetitionBot robot = new HardwareMap_CompetitionBot(); // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
@@ -79,21 +80,62 @@ public class R2_Park_WheelsOnly_F6 extends LinearOpMode {
             waitForStart();
             state = 1;
         }
-        //strafing left several inches into substation
+        //forward 8
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            //move forward 2 squares
-            encoderDrive(1,-7,-7, -7, -7, 4.0);
+            encoderDrive(1,-8,-8, -8, -8, 4.0);
             state = 2;
         }
+        //open intake 1
+        if (state == 2){
+            telemetry.addData("State","2");
+            telemetry.update();
+            robot.Intake1.setPosition(180);
+            state = 3;
+        }
+        //strafe left
+        if (state == 3){
+            telemetry.addData("State","3");
+            telemetry.update();
+            strafeRight(DRIVE_SPEED, 13);
+            state = 4;
+        }
+        //turn right
+        if (state == 4){
+            telemetry.addData("State","4");
+            telemetry.update();
+            encoderDrive(DRIVE_SPEED, 5, -5, 5, -5, 4.0);
+            state = 5;
+        }
+        //arm raises to drop pixels on backdrop
+        if (state == 5){
+            telemetry.addData("State","5");
+            telemetry.update();
+            robot.arm1.setTargetPosition(270);
+            robot.arm2.setTargetPosition(90);
+            state = 6;
+        }
+        //pivot shifts to correct position for dropping pixels on backdrop
+        if (state == 6){
+            telemetry.addData("State","6");
+            telemetry.update();
+            robot.Pivot.setTargetPosition(45);
+            state = 7;
+        }
+        //open intake 2
+        if (state == 7){
+            telemetry.addData("State","7");
+            telemetry.update();
+            robot.Intake2.setPosition(180);
+            state = 8;
+        }
         //stopping robot
-        if(state == 2){
-            telemetry.addData("State", "4");
+        if(state == 8){
+            telemetry.addData("State", "8");
             telemetry.update();
             stopMotors();
-            //Move forward six feet.
-            state = 3;
+            state = 9;
         }
 
         //stop all motion
@@ -182,19 +224,26 @@ public class R2_Park_WheelsOnly_F6 extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+
+    public void Intake1 ( double Intake1Position){
+        while (opModeIsActive())
+            robot.Intake1.setPosition(Intake1Position);
+    }
+
     public void stopMotors() {
         robot.leftFront.setPower(0);
         robot.leftBack.setPower(0);
         robot.rightFront.setPower(0);
         robot.rightBack.setPower(0);
     }
+
     public void turnLeft(double power) {
         robot.leftFront.setPower(-power);
         robot.rightFront.setPower(power);
         robot.leftBack.setPower(-power);
         robot.rightBack.setPower(power);
     }
-    public void strafeLeft(double power, int distance) {
+    public void strafeLeft(double power, double distance) {
         Orientation angles;
         double error;
         double k = 3/360.0;
@@ -226,7 +275,7 @@ public class R2_Park_WheelsOnly_F6 extends LinearOpMode {
         stopMotors();
     }
 
-    public void strafeRight(double power, int distance) {
+    public void strafeRight(double power, double distance) {
         Orientation angles;
         double error;
         double k = 3 / 360.0;
