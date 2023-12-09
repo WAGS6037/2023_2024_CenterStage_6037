@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.hardware.CRServo;
 //import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -130,8 +131,8 @@ public class HardwareMap_CompetitionBot
         rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // arm
-        arm1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        arm2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        arm1.setDirection(DcMotor.Direction.REVERSE); //arm1 is LEFT, arm2 is RIGHT
+        arm2.setDirection(DcMotor.Direction.FORWARD);
 
         // Wheels for paper airplane shooter
         shooter.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark servos

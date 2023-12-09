@@ -108,44 +108,44 @@ public class ConceptTensorFlowObjectDetectionEasy extends LinearOpMode {
             state = 1;
         }
         //move to center spike line
-        if (state == 1) {
-            telemetry.addData("State", "1");
-            telemetry.update();
+        //if (state == 1) {
+            //telemetry.addData("State", "1");
+            //telemetry.update();
             //move forward 4 squares
-            encoderDrive(1, 8, 8, 8, 8, 30);
-            pixelDetected = tensorFlow();
-            if (pixelDetected) {
+            //encoderDrive(1, 8, 8, 8, 8, 30);
+            //pixelDetected = tensorFlow();
+            //if (pixelDetected) {
                 //do whatever needed after detection
-            } else {
-                state = 2;
-            }
-        }
+            //} else {
+                //state = 2;
+            //}
+        //}
         //move to center spike line
-        if (state == 2) {
-            telemetry.addData("State", "2");
-            telemetry.update();
+        //if (state == 2) {
+            //telemetry.addData("State", "2");
+            //telemetry.update();
             //move forward 4 squares
-            encoderDrive(1, 8, 8, 8, 8, 30);
-            pixelDetected = tensorFlow();
-            if (pixelDetected) {
+            //encoderDrive(1, 8, 8, 8, 8, 30);
+            //pixelDetected = tensorFlow();
+            //if (pixelDetected) {
                 //do whatever needed after
-            } else {
-                state = 3;
-            }
-        }
+            //} else {
+                //state = 3;
+            //}
+        //}
         //stopping robot
-        if (state == 3) {
-            telemetry.addData("State", "4");
-            telemetry.update();
-            stopMotors();
+        //if (state == 3) {
+            //telemetry.addData("State", "4");
+            //telemetry.update();
+            //stopMotors();
             //Move forward six feet.
-            pixelDetected = tensorFlow();
-            if (pixelDetected) {
+            //pixelDetected = tensorFlow();
+            //if (pixelDetected) {
                 //do whatever needed
-            } else {
-                state = 4;
-            }
-        }
+            //} else {
+                //state = 4;
+            //}
+        //}
     }
 
     public boolean tensorFlow() {
@@ -198,7 +198,7 @@ public class ConceptTensorFlowObjectDetectionEasy extends LinearOpMode {
             visionPortal = VisionPortal.easyCreateWithDefaults(
                     BuiltinCameraDirection.BACK, tfod);
         }
-
+        tfod.setZoom(2.0);
     }   // end method initTfod()
 
     /**

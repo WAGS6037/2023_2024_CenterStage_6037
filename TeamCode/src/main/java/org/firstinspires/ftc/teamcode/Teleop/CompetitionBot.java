@@ -85,6 +85,38 @@ public class CompetitionBot extends OpMode {
         //original --> - / + / - / +
 
         //end of gamepad driving 1
+        //beginning of Natalie bad code
+        double rStickX2;
+        double rStickY2;
+        double lStickX2;
+        double targetAngle2;
+        double mag12;
+        double mag22;
+        double rotationPower2;
+        double maxPower2;
+        double scaleDown2;
+
+        //gamepad 1 driving
+        rStickX2 = gamepad2.right_stick_x;
+        rStickY2 = gamepad2.right_stick_y; // this used to be negative
+        lStickX2 = gamepad2.left_stick_x;
+
+        targetAngle2 = (Math.atan2(rStickY2,rStickX2));
+
+        rotationPower2 = -lStickX2;
+        mag12 = Math.sqrt(Math.pow(rStickX2,2) + Math.pow(rStickY2,2)) * (Math.sin(targetAngle2 + Math.PI / 4));
+        mag22 = Math.sqrt(Math.pow(rStickX2,2) + Math.pow(rStickY2,2)) * (Math.sin(targetAngle2 - Math.PI / 4));
+
+        maxPower2 = Math.max(Math.abs(mag12) +  Math.abs(rotationPower2) , Math.abs(mag22) +  Math.abs(rotationPower2)) + 0.15;
+        scaleDown2 = 1.0;
+
+        if (maxPower2 > 1)
+            scaleDown2 = 1.0 / maxPower2;
+
+        robot.arm1.setPower((mag22 + rotationPower2) * scaleDown2);
+        //robot.rightFront.setPower((mag1 - rotationPower) * scaleDown);
+        //robot.leftBack.setPower((mag1 + rotationPower) * scaleDown);
+        //robot.rightBack.setPower((mag2 - rotationPower) * scaleDown);
 
         boolean isButtonB2 = gamepad2.b; //moving shooter wheels (they move simultaneously in opposite directions)
         boolean isButtonA2 = gamepad2.a; //to move arm
@@ -114,41 +146,11 @@ public class CompetitionBot extends OpMode {
         final int down = 0;
         final int level1 = -4530;
 
-        //Arm --> lift up with trigger
-        if (isButtonLT1 > 0) {
-            robot.arm1.setPower(1);
-            robot.arm2.setPower(-1);
-            robot.arm1.setTargetPosition((int) gamepad1.left_trigger); //set target pos. BEFORE run to pos.
-            robot.arm2.setTargetPosition((int) gamepad1.left_trigger);
-            //robot.arm1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.arm2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            telemetry.addData("Button","LT1");
-            telemetry.update();
-        } else {
-            robot.arm1.setPower(0);
-            robot.arm2.setPower(0);
-        }
-
-        //Arm --> go down with trigger
-        if (isButtonRT1 > 0) {
-            robot.arm1.setPower(-1);
-            robot.arm2.setPower(1);
-            robot.arm1.setTargetPosition((int) gamepad1.left_trigger); //set target pos. BEFORE run to pos.
-            robot.arm2.setTargetPosition((int) gamepad1.left_trigger);
-            //robot.arm1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.arm2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            telemetry.addData("Button","RT1");
-            telemetry.update();
-        } else {
-            robot.arm1.setPower(0);
-            robot.arm2.setPower(0);
-        }
-
         //Arm --> lift up
-        if (isButtonRB2) {
-            robot.arm1.setPower(0.5); // we changed speed from 1 to 0.5 to see if it stops jerkiness
+        if (isButtonA2) {
+            robot.arm1.setPower(-0.5); // we changed speed from 1 to 0.5 to see if it stops jerkiness
             robot.arm2.setPower(-0.5);
-            telemetry.addData("Button","RB2");
+            telemetry.addData("Button","A2");
             //telemetry.addData("Arm 1", String.format("%7d", robot.arm1.getCurrentPosition()));
             //telemetry.addData("Arm 2", String.format("%7d", robot.arm2.getCurrentPosition()));
             telemetry.update();
@@ -159,12 +161,12 @@ public class CompetitionBot extends OpMode {
         }
 
         //Arm --> go down
-        if (isButtonLB2) {
-            robot.arm1.setPower(-0.5);
+        if (isButtonX2) {
+            robot.arm1.setPower(0.5);
             robot.arm2.setPower(0.5);
-            telemetry.addData("Button","LB2");
-            telemetry.addData("Arm 1", String.format("%7d", robot.arm1.getCurrentPosition()));
-            telemetry.addData("Arm 2", String.format("%7d", robot.arm2.getCurrentPosition()));
+            telemetry.addData("Button","X2");
+            //telemetry.addData("Arm 1", String.format("%7d", robot.arm1.getCurrentPosition()));
+            //telemetry.addData("Arm 2", String.format("%7d", robot.arm2.getCurrentPosition()));
             telemetry.update();
         } else {
             robot.arm1.setPower(0);
