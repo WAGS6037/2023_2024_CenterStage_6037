@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.ConceptGamepadTouchpad;
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_CompetitionBot;
 
 // name this OpMode and determine a group
@@ -15,7 +13,7 @@ public class CompetitionBot extends OpMode {
 
     /* Declare OpMode members. */
 
-    HardwareMap_CompetitionBot robot       = new HardwareMap_CompetitionBot();
+    HardwareMap_CompetitionBot robot = new HardwareMap_CompetitionBot();
     private ElapsedTime runtime = new ElapsedTime();
     private ElapsedTime runtimeLift = new ElapsedTime();
 
@@ -41,15 +39,12 @@ public class CompetitionBot extends OpMode {
 
     /* Code to run ONCE when the driver hits PLAY
      */
-
     @Override
     public void start() {
-
     }
 
     @Override
     public void loop() {
-
         double rStickX;
         double rStickY;
         double lStickX;
@@ -85,7 +80,7 @@ public class CompetitionBot extends OpMode {
         //original --> - / + / - / +
 
         //end of gamepad driving 1
-        //beginning of Natalie bad code
+        //arm control (gamepad2)
         double rStickX2;
         double rStickY2;
         double lStickX2;
@@ -96,7 +91,6 @@ public class CompetitionBot extends OpMode {
         double maxPower2;
         double scaleDown2;
 
-        //gamepad 1 driving
         rStickX2 = gamepad2.right_stick_x;
         rStickY2 = gamepad2.right_stick_y; // this used to be negative
         lStickX2 = gamepad2.left_stick_x;
@@ -114,9 +108,6 @@ public class CompetitionBot extends OpMode {
             scaleDown2 = 1.0 / maxPower2;
 
         robot.arm1.setPower((mag22 + rotationPower2) * scaleDown2);
-        //robot.rightFront.setPower((mag1 - rotationPower) * scaleDown);
-        //robot.leftBack.setPower((mag1 + rotationPower) * scaleDown);
-        //robot.rightBack.setPower((mag2 - rotationPower) * scaleDown);
 
         boolean isButtonB2 = gamepad2.b; //moving shooter wheels (they move simultaneously in opposite directions)
         boolean isButtonA2 = gamepad2.a; //to move arm
@@ -145,47 +136,6 @@ public class CompetitionBot extends OpMode {
         //programming buttons for gamepad 2 bumpers
         final int down = 0;
         final int level1 = -4530;
-
-        /*
-        //Arm --> lift up
-        if (isButtonA2) {
-            robot.arm1.setPower(-0.5); // we changed speed from 1 to 0.5 to see if it stops jerkiness
-            robot.arm2.setPower(-0.5);
-            telemetry.addData("Button","A2");
-            //telemetry.addData("Arm 1", String.format("%7d", robot.arm1.getCurrentPosition()));
-            //telemetry.addData("Arm 2", String.format("%7d", robot.arm2.getCurrentPosition()));
-            telemetry.update();
-        } else {
-            robot.arm1.setPower(0);
-            robot.arm2.setPower(0);
-            telemetry.addData("Button", "None");
-        }
-
-        //Arm --> go down
-        if (isButtonX2) {
-            robot.arm1.setPower(0.5);
-            robot.arm2.setPower(0.5);
-            telemetry.addData("Button","X2");
-            //telemetry.addData("Arm 1", String.format("%7d", robot.arm1.getCurrentPosition()));
-            //telemetry.addData("Arm 2", String.format("%7d", robot.arm2.getCurrentPosition()));
-            telemetry.update();
-        } else {
-            robot.arm1.setPower(0);
-            robot.arm2.setPower(0);
-            telemetry.addData("Button", "None");
-        }
-
-        /*
-        //lift to high junction --> button Y = high junction
-        if (isButtonY2) {
-            robot.slideSystem.setPower(0);
-            liftUp(3.80, 1);
-            telemetry.addData("Button","Y2");
-        } else {
-            telemetry.addData("Button","None");
-            robot.slideSystem.setPower(0);
-        }
-         */
 
         //Wheels for paper airplane shooter
         if (isButtonB2) {
@@ -230,39 +180,6 @@ public class CompetitionBot extends OpMode {
         } else {
             robot.Pivot.setPower(0);
         }
-
-        //raise the arm to top position
-        //if () {
-            //robot.arm1.setPower(-1);
-            //robot.arm2.setPower(1);
-            //robot.arm1.setPower(1);
-            //robot.arm2.setPower(-1);
-            //robot.arm1.setTargetPosition(2000);
-            //robot.arm2.setTargetPosition(-2000);
-            //liftUpPosition(-2000, 1);
-            //telemetry.addData("Button","A2");
-        //} //else {
-            //robot.arm1.setPower(0);
-            //robot.arm2.setPower(0);
-
-        //Pivot --> Up
-        //if (isButtonDU2) {
-            //robot.Pivot.setPower(0.5);
-            //telemetry.addData("Button","DU2");
-        //} else {
-            //robot.Pivot.setPower(0);
-            //telemetry.addData("Button", "None");
-        //}
-
-        //Pivot --> Down
-        //if (isButtonDD2) {
-            //robot.Pivot.setPower(-0.5);
-            //telemetry.addData("Button","DD2");
-        //} else {
-            //robot.Pivot.setPower(0);
-            //telemetry.addData("Button", "None");
-        //}
-
     }
 
     //liftUp
@@ -277,7 +194,6 @@ public class CompetitionBot extends OpMode {
     }
 
     public void liftUpPosition(int position, double liftSpeed) {
-
         robot.arm1.setTargetPosition(Math.abs(position));
         robot.arm1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.arm1.setPower(Math.abs(liftSpeed));
