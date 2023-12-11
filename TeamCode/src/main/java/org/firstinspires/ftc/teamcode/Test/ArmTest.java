@@ -9,14 +9,14 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptGamepadTouchpad;
-import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_CompetitionBot;
-
+import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Arm1;
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_CompetitionBot;
 
 @TeleOp
 public class ArmTest extends LinearOpMode {
     HardwareMap_CompetitionBot robot = new HardwareMap_CompetitionBot();
     public void runOpMode() {
+        robot.init(hardwareMap);
         telemetry.addData(">", "Press Start." );
         telemetry.update();
         waitForStart();

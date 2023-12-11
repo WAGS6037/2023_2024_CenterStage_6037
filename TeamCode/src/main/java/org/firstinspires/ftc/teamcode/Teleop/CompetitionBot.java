@@ -146,6 +146,7 @@ public class CompetitionBot extends OpMode {
         final int down = 0;
         final int level1 = -4530;
 
+        /*
         //Arm --> lift up
         if (isButtonA2) {
             robot.arm1.setPower(-0.5); // we changed speed from 1 to 0.5 to see if it stops jerkiness
